@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 
 export const findAll = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const products = await prisma.product.findMany();
     res.json({
       ok: true,
-      data: users,
+      data: products,
     });
   } catch (error) {
     res.json({
@@ -20,18 +20,55 @@ export const findAll = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const { body } = req;
-    const user = await prisma.user.create({
+    const product = await prisma.product.create({
       data: {
         ...body,
       },
     });
     res.json({
       ok: true,
-      data: user,
+      data: product,
     });
   } catch (error) {
     res.json({
       ok: false,
+      data: error.message,
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const product = await prisma.product.update({
+      where: {id},
+      data: req.body,
+    })
+    res.json({
+      ok: true,
+      data: product,
+    });
+  } catch (error) {
+    res.json({
+      ok: false,
+      data: error.message,
+    });
+  }
+}
+
+export const remove = async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const product = await prisma.product.delete({
+      where: { id },
+    });
+    res.json({
+      ok: true,
+      data: product,
+    });
+  } catch (error) {
+    res.json({
+      ok: "Delete student",
       data: error.message,
     });
   }
