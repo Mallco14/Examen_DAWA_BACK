@@ -12,11 +12,11 @@ datasource db {
 
 model Product {
   id           Int      @id @default(autoincrement())
-  nombre       String?
-  img          String  
-  cantidad     Int   
-  precio       Float
-  distribuidor String?
+  name       String?
+  description          String  
+  brand     Int   
+  price       Float
+  stock String?
 
   @@map("products")
 }
